@@ -1,8 +1,5 @@
 # Compiled class file
 bin/
 
-classpath/
+.classpath
 
-
-# Package Files #
-#*.jar
