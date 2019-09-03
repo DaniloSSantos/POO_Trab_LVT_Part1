@@ -1,9 +1,8 @@
 # Compiled class file
 bin/
 
-# Log file
-#*.log
+classpath/
 
 
 # Package Files #
-*.jar
+#*.jar
