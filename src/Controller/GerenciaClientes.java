@@ -131,7 +131,144 @@ public class GerenciaClientes {
 	}
 	
 	public void alterar() {
-		
+		String nome, endereco, telefone;
+		int pos, resp, resp2;
+
+		if (!arrayclientes.isEmpty()) {
+			System.out.println("Qual posição deseja alterar?");
+			pos = inputNum.nextInt();
+
+			if (pos >= 0 && pos <= arrayclientes.size()) {
+				System.out.println("Informações atuais:\n");
+				imprimirNumerado(arrayclientes.get(pos));
+				System.out.println("\nDigite o número correspondente ao campo que deseja alterar:");
+				resp = inputNum.nextInt();
+
+				switch (resp) {
+				case 1:
+					System.out.print("Nome: ");
+					nome = inputChar.nextLine();
+					System.out.println("Alterar? 1.sim | 2.não");
+					resp2 = inputNum.nextInt();
+
+					if (resp2 == 1) {
+						arrayclientes.get(pos).setNome(nome);
+						System.out.println("OK, alteado com sucesso!");
+					} else {
+						System.out.println("Certo, não foi alteado");
+					}
+
+					break;
+				case 2:
+					System.out.print("\nEndereço: ");
+					endereco = inputChar.nextLine();
+					System.out.println("Alterar? 1.sim | 2.não");
+					resp2 = inputNum.nextInt();
+
+					if (resp2 == 1) {
+						arrayclientes.get(pos).setEndereco(endereco);
+						System.out.println("OK, alteado com sucesso!");
+					} else {
+						System.out.println("Certo, não foi alteado");
+					}
+					break;
+				case 3:
+					System.out.print("\nTelefone: ");
+					telefone = inputChar.nextLine();
+
+					System.out.println("Alterar? 1.sim | 2.não");
+					resp2 = inputNum.nextInt();
+
+					if (resp2 == 1) {
+						arrayclientes.get(pos).setTelefone(telefone);
+						System.out.println("OK, alteado com sucesso!");
+					} else {
+						System.out.println("Certo, não foi alteado");
+					}
+
+					break;
+				case 4:
+					Cliente tipoCliente = arrayclientes.get(pos);
+					
+					if (tipoCliente instanceof Fisica) {
+						Fisica fisica = (Fisica) tipoCliente;
+
+						String cpf;
+						System.out.print("\nCPF: ");
+						cpf = inputChar.nextLine();
+
+						System.out.println("Alterar? 1.sim | 2.não");
+						resp2 = inputNum.nextInt();
+
+						if (resp2 == 1) {
+							fisica.setCpf(cpf);
+							System.out.println("OK, alterado com sucesso!");
+
+						} else {
+							System.out.println("Certo, não foi alterado");
+						}
+					}
+					
+					if (tipoCliente instanceof Juridica) {
+						Juridica juri = (Juridica) tipoCliente;
+
+						String cnpj;
+						System.out.print("\nCNPJ: ");
+						cnpj = inputChar.nextLine();
+
+						System.out.println("Alterar? 1.sim | 2.não");
+						resp2 = inputNum.nextInt();
+
+						if (resp2 == 1) {
+							juri.setCnpj(cnpj);
+							System.out.println("OK, alterado com sucesso!");
+
+						} else {
+							System.out.println("Certo, não foi alterado");
+						}
+					}
+
+					break;
+
+				case 5:
+					tipoCliente = arrayclientes.get(pos);
+					
+					if (tipoCliente instanceof Fisica) {
+						LocalDate dataNascimento;
+						String data;
+						
+						Fisica fisica = (Fisica) tipoCliente;
+						
+						DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						
+						System.out.print("Data de nascimento:\nformato dd/MM/yyyy\n");
+						data = inputChar.nextLine();
+						
+						dataNascimento = LocalDate.parse(data, formato);
+
+						System.out.println("Alterar? 1.sim | 2.não");
+						resp2 = inputNum.nextInt();
+
+						if (resp2 == 1) {
+							fisica.setDataNascimento(dataNascimento);
+							System.out.println("OK, alterado com sucesso!");
+
+						} else {
+							System.out.println("Certo, não foi alterado");
+						}
+					}
+
+					break;
+
+				}
+
+			} else {
+				System.out.println("Posição inexistente!");
+			}
+
+		} else {
+			System.out.println("Não existe Cliente cadastrado!");
+		}
 	}
 	
 	public void excluir() {
@@ -213,7 +350,7 @@ public class GerenciaClientes {
 
 		if (c instanceof Juridica) {
 			Juridica juri = (Juridica) c;
-			System.out.println("6.CNPJ:------------------" + juri.getCnpj());
+			System.out.println("4.CNPJ:------------------" + juri.getCnpj());
 		}
 	}
 }
