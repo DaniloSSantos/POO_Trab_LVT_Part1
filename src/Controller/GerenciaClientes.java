@@ -5,9 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Model.Caminhao;
+import Model.Carro;
 import Model.Cliente;
 import Model.Fisica;
 import Model.Juridica;
+import Model.Veiculo;
 
 public class GerenciaClientes {
 	ArrayList<Cliente> arrayclientes;
@@ -132,18 +135,85 @@ public class GerenciaClientes {
 	}
 	
 	public void excluir() {
-		
+		int pos, resp;
+
+		System.out.println("Qual posição deseja excluir?");
+		pos = inputNum.nextInt();
+
+		if (pos >= 0 && pos <= arrayclientes.size()) {
+			System.out.println("Informações atuais:\n");
+			imprimir(arrayclientes.get(pos));
+			System.out.println("\nTem certeza que deseja excluir?\n1.Sim | 2.Não\n");
+			resp = inputNum.nextInt();
+			if (resp == 1) {
+				arrayclientes.remove(pos);
+				System.out.printf("Posição[%d] removido com sucesso!", pos);
+				System.out.println("");
+			}
+
+		} else {
+			System.out.println("Posição inexistente!");
+		}
 	}
 	
 	public void consultar() {
-		
+		int pos;
+
+		System.out.println("Qual posição deseja consultar?");
+		pos = inputNum.nextInt();
+
+		if (pos >= 0 && pos <= arrayclientes.size()) {
+			System.out.println("Informações atuais:\n");
+			imprimir(arrayclientes.get(pos));
+		} else {
+			System.out.println("Posição inexistente!");
+		}
 	}
 	
 	public void relatorio() {
-		
+		if (arrayclientes.size() != 0) {
+			for (Cliente c : arrayclientes) {
+				imprimir(c);
+				System.out.println("\n----x----x----x----x----x-----\n");
+			}
+		} else {
+			System.out.println("Não existe veículo cadastrado!");
+		}
 	}
 	
-	public void imprimir() {
+	public void imprimir(Cliente c) {
+		System.out.println("Nome:------------------" + c.getNome());
+		System.out.println("Endereço:--------------" + c.getEndereco());
+		System.out.println("Telefone:--------------" + c.getTelefone());
 		
+
+		if (c instanceof Fisica) {
+			Fisica fisica = (Fisica) c;
+			System.out.println("CPF:-------------------" + fisica.getCpf());
+			System.out.println("Data de nascimento:----" + fisica.getDataNascimento());
+		}
+
+		if (c instanceof Juridica) {
+			Juridica juri = (Juridica) c;
+			System.out.println("CNPJ:------------------" + juri.getCnpj());
+		}
+	}
+	
+	public void imprimirNumerado(Cliente c) {
+		System.out.println("1.Nome:------------------" + c.getNome());
+		System.out.println("2.Endereço:--------------" + c.getEndereco());
+		System.out.println("3.Telefone:--------------" + c.getTelefone());
+		
+
+		if (c instanceof Fisica) {
+			Fisica fisica = (Fisica) c;
+			System.out.println("4.CPF:-------------------" + fisica.getCpf());
+			System.out.println("5.Data de nascimento:----" + fisica.getDataNascimento());
+		}
+
+		if (c instanceof Juridica) {
+			Juridica juri = (Juridica) c;
+			System.out.println("6.CNPJ:------------------" + juri.getCnpj());
+		}
 	}
 }
