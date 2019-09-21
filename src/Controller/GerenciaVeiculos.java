@@ -30,8 +30,7 @@ public class GerenciaVeiculos {
 			System.out.println("3 - Exclusão");
 			System.out.println("4 - Consulta");
 			System.out.println("5 - Relatório");
-			System.out.println("6 - Gerar veículos");
-			System.out.println("7 - Voltar ao menu principal");
+			System.out.println("6 - Voltar ao menu principal");
 			System.out.println("============== --0-- =============");
 			System.out.println("\n");
 			System.out.println("Opção: ");
@@ -56,7 +55,7 @@ public class GerenciaVeiculos {
 				break;
 			case 5:
 				System.out.println("*** RELATÓRIO VEÍCULO ***");
-				//relatorio();
+				relatorio();
 				break;
 			case 6:
 				System.out.println("Voltar ao menu principal");
@@ -109,7 +108,7 @@ public class GerenciaVeiculos {
 			System.out.print("\nCapacidade de passageiros: ");
 			capacidadePassageiros = inputNum.nextInt();
 			System.out.print("\nQuantidade de portas: ");
-			capacidadePassageiros = inputNum.nextInt();
+			quantidadePortas = inputNum.nextInt();
 			
 			Carro c = new Carro(marca, modelo, anoFabricacao, anoModelo, placa, capacidadePassageiros, quantidadePortas);
 			arrayVeiculos.add(c);
@@ -142,7 +141,7 @@ public class GerenciaVeiculos {
 
 			if (pos >= 0 && pos <= arrayVeiculos.size()) {
 				System.out.println("Informações atuais:\n");
-				//imprimir(arrayVeiculos.get(pos));
+				imprimirNumerado(arrayVeiculos.get(pos));
 				System.out.println("Digite o número correspondente ao campo que deseja alterar:\n");
 				resp = inputNum.nextInt();
 
@@ -221,7 +220,7 @@ public class GerenciaVeiculos {
 					}
 
 					break;
-				case 6: // tipoVeiculo: 1. Carro, 2. Caminhão
+				case 6: 
 					Veiculo tipoVeiculo = arrayVeiculos.get(pos);
 					
 					
@@ -296,11 +295,57 @@ public class GerenciaVeiculos {
 	}
 	
 	public void relatorio() {
+		System.out.println("Relatório Geral\n");
+		
+		if(arrayVeiculos.size() != 0) {
+			for (Veiculo v : arrayVeiculos) {
+				imprimirNumerado(v);
+				System.out.println("----0----0----0----0----0---\n");
+			}
+		}else {
+			System.out.println("Não existe veículo cadastrado!");
+		}
 		
 	}
 	
-	public void imprimir() {
+	public void imprimirNumerado(Veiculo v) {
+		System.out.println("1.Marca:----------------------" + v.getMarca());
+		System.out.println("2.Modelo:---------------------" + v.getModelo());
+		System.out.println("3.Ano de Fabricação:----------" + v.getAnoFabricacao());
+		System.out.println("4.Ano do Modelo:--------------" + v.getAnoModelo());
+		System.out.println("5.Placa:----------------------" + v.getPlaca());
 		
+		if (v instanceof Carro) {
+			Carro carro = (Carro) v;
+			System.out.println("6.Capacidade de passageiros:--" + carro.getCapacidadePassageiros());
+			System.out.println("7.Quantidade de portas:-------" + carro.getQuantidadePortas());
+		}
+		
+		if (v instanceof Caminhao) {
+			Caminhao cami = (Caminhao) v;
+			System.out.println("6.Capacidade de carga:--" + cami.getCapacidadeCarga());
+			System.out.println("7.Número de eixos:-------" + cami.getNumeroDeEixos());
+		}
+	}
+	
+	public void imprimir(Veiculo v) {
+		System.out.println("Marca:----------------------" + v.getMarca());
+		System.out.println("Modelo:---------------------" + v.getModelo());
+		System.out.println("Ano de Fabricação:----------" + v.getAnoFabricacao());
+		System.out.println("Ano do Modelo:--------------" + v.getAnoModelo());
+		System.out.println("Placa:----------------------" + v.getPlaca());
+		
+		if (v instanceof Carro) {
+			Carro carro = (Carro) v;
+			System.out.println("Capacidade de passageiros:--" + carro.getCapacidadePassageiros());
+			System.out.println("Quantidade de portas:-------" + carro.getQuantidadePortas());
+		}
+		
+		if (v instanceof Caminhao) {
+			Caminhao cami = (Caminhao) v;
+			System.out.println("Capacidade de carga:--" + cami.getCapacidadeCarga());
+			System.out.println("Número de eixos:-------" + cami.getNumeroDeEixos());
+		}
 	}
 	
 	

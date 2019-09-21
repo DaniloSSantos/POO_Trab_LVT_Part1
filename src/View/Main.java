@@ -5,12 +5,17 @@ import java.util.Scanner;
 
 import Model.Agenda;
 import Model.Locacao;
+import Model.Veiculo;
 import Controller.GerenciaAgenda;
 import Controller.GerenciaLocacao;
+import Controller.GerenciaVeiculos;
 
 public class Main {
 
 	public static void main(String[] args) {
+		
+		ArrayList<Veiculo> arrayVeiculos = new ArrayList<>();
+		GerenciaVeiculos gerVeic = new GerenciaVeiculos(arrayVeiculos);
 		
 		ArrayList<Agenda> arrayAgenda = new ArrayList<>();
 		GerenciaAgenda gerAg = new GerenciaAgenda(arrayAgenda);
@@ -43,7 +48,7 @@ public class Main {
 				//
 				break;
 			case 3:
-				//
+				gerVeic.subMenu();
 				break;
 			case 4:
 				//
