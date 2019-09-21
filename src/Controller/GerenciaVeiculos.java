@@ -51,7 +51,7 @@ public class GerenciaVeiculos {
 				break;
 			case 4:
 				System.out.println("*** CONSULTAR VEÍCULO ***");
-				//consultar();
+				consultar();
 				break;
 			case 5:
 				System.out.println("*** RELATÓRIO VEÍCULO ***");
@@ -287,16 +287,42 @@ public class GerenciaVeiculos {
 	}
 
 	public void excluir() {
-		
+		int pos, resp;
+
+		System.out.println("Qual posição deseja excluir?");
+		pos = inputNum.nextInt();
+
+		if (pos >= 0 && pos <= arrayVeiculos.size()) {
+			System.out.println("Informações atuais:\n");
+			imprimir(arrayVeiculos.get(pos));
+			System.out.println("Tem certeza que deseja excluir?\n1.Sim | 2.Não");
+			resp = inputNum.nextInt();
+			if (resp == 1) {
+				arrayVeiculos.remove(pos);
+				System.out.printf("Posição[%d] removido com sucesso!", pos);
+				System.out.println("");
+			}
+
+		} else {
+			System.out.println("Posição inexistente!");
+		}
 	}
 	
 	public void consultar() {
-		
+		int pos;
+
+		System.out.println("Qual posição deseja consultar?");
+		pos = inputNum.nextInt();
+
+		if (pos >= 0 && pos <= arrayVeiculos.size()) {
+			System.out.println("Informações atuais:\n");
+			imprimir(arrayVeiculos.get(pos));
+		} else {
+			System.out.println("Posição inexistente!");
+		}
 	}
 	
 	public void relatorio() {
-		System.out.println("Relatório Geral\n");
-		
 		if(arrayVeiculos.size() != 0) {
 			for (Veiculo v : arrayVeiculos) {
 				imprimirNumerado(v);
