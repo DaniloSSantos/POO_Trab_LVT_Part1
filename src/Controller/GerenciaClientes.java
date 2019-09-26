@@ -3,6 +3,7 @@ package Controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import Model.Caminhao;
@@ -102,6 +103,9 @@ public class GerenciaClientes {
 		if(op == 1) {
 			String cpf, data;
 			LocalDate dataNascimento;
+			int codigo;
+			
+			codigo = gerarCodigo();
 			
 			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			System.out.print("CPF: ");
@@ -111,7 +115,7 @@ public class GerenciaClientes {
 			
 			dataNascimento = LocalDate.parse(data, formato);
 			
-			Fisica f = new Fisica(nome, endereco, telefone, cpf, dataNascimento);
+			Fisica f = new Fisica(nome, endereco, telefone, codigo, cpf, dataNascimento);
 			arrayclientes.add(f);
 			
 			System.out.println("\nPessoa física cadastrada com sucesso!");
@@ -121,8 +125,11 @@ public class GerenciaClientes {
 			String cnpj;
 			System.out.print("CNPJ: ");
 			cnpj = inputChar.nextLine();
+			int codigo;
 			
-			Juridica j = new Juridica(nome, endereco, telefone, cnpj);
+			codigo = gerarCodigo();
+			
+			Juridica j = new Juridica(nome, endereco, telefone, codigo, cnpj);
 			arrayclientes.add(j);
 			
 			System.out.println("\nPessoa Jurídica cadastrada com sucesso!");
@@ -319,6 +326,7 @@ public class GerenciaClientes {
 	}
 	
 	public void imprimir(Cliente c) {
+		System.out.println("CÓDIGO [" + c.getCodigo() + "]");
 		System.out.println("Nome:------------------" + c.getNome());
 		System.out.println("Endereço:--------------" + c.getEndereco());
 		System.out.println("Telefone:--------------" + c.getTelefone());
@@ -337,6 +345,7 @@ public class GerenciaClientes {
 	}
 	
 	public void imprimirNumerado(Cliente c) {
+		System.out.println("1.CÓDIGO [" + c.getCodigo() + "]");
 		System.out.println("1.Nome:------------------" + c.getNome());
 		System.out.println("2.Endereço:--------------" + c.getEndereco());
 		System.out.println("3.Telefone:--------------" + c.getTelefone());
@@ -353,4 +362,42 @@ public class GerenciaClientes {
 			System.out.println("4.CNPJ:------------------" + juri.getCnpj());
 		}
 	}
+	
+	int  gerarCodigo() {
+		int codigo = 0;
+		
+		Random gerar = new Random();
+		codigo = gerar.nextInt((6 - 1)+ 1)+ 1;
+		
+		return codigo;
+	}
+	
+	public int buscarClientePorCodigo(int codCliente) {
+		int posicao = 0;
+		int compara = 0;
+		
+
+		if (arrayclientes.size() != 0) {
+			for (int i = 0; i < arrayclientes.size(); i++) {
+				if (arrayclientes.get(i).getCodigo() == codCliente) {
+					compara = arrayclientes.get(i).getCodigo();
+					posicao = i;
+					break;
+				}
+			}
+
+			if (compara == codCliente) {
+				return posicao;
+
+			} else {
+				System.out.println("Cliente não encontrado!");
+				return -1;
+			}
+		} else {
+			System.out.println("Não existe cliente cadastrado!");
+			return -2;
+
+		}
+	}
+	
 }

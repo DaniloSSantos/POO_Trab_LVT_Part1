@@ -6,8 +6,8 @@ public class Fisica extends Cliente {
 	private String cpf;
 	private LocalDate dataNascimento;
 	
-	public Fisica(String nome, String endereco, String telefone, String cpf, LocalDate dataNascimento) {
-		super(nome, endereco, telefone);
+	public Fisica(String nome, String endereco, String telefone, int codigo, String cpf, LocalDate dataNascimento) {
+		super(nome, endereco, telefone, codigo);
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 	}

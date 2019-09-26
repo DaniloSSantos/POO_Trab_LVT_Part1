@@ -22,11 +22,11 @@ public class Main {
 		ArrayList<Cliente> arrayclientes = new ArrayList<>();
 		GerenciaClientes gerCli = new GerenciaClientes(arrayclientes);
 		
-		ArrayList<Agenda> arrayAgenda = new ArrayList<>();
-		GerenciaAgenda gerAg = new GerenciaAgenda(arrayAgenda);
-		
 		ArrayList<Locacao> locacoes = new ArrayList<>();
 		GerenciaLocacao gerLoc = new GerenciaLocacao(locacoes);
+		
+		ArrayList<Agenda> arrayAgenda = new ArrayList<>();
+		GerenciaAgenda gerAg = new GerenciaAgenda(arrayVeiculos, arrayclientes, locacoes, arrayAgenda);
 
 		Scanner input = new Scanner(System.in);
 

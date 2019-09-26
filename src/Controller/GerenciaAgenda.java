@@ -1,18 +1,37 @@
 package Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Agenda;
+import Model.Caminhao;
+import Model.Carro;
+import Model.Cliente;
+import Model.Locacao;
+import Model.Veiculo;
 
 public class GerenciaAgenda {
+	ArrayList<Locacao> locacoes;
+	ArrayList<Veiculo> arrayVeiculos;
+	ArrayList<Cliente> arrayclientes;
 	
 	Scanner inputNum;
-	Scanner inputString;
+	Scanner inputChar;
 	
 	public GerenciaAgenda(ArrayList<Agenda> arrayAgenda) {
 		inputNum = new Scanner(System.in);
-		inputString = new Scanner(System.in);
+		inputChar = new Scanner(System.in);
+	}
+	
+	public GerenciaAgenda(ArrayList<Veiculo> arrayVeiculos,
+			ArrayList<Cliente> arrayclientes, ArrayList<Locacao> locacoes, ArrayList<Agenda> arrayAgenda) {
+		super();
+		this.locacoes = locacoes;
+		this.arrayVeiculos = arrayVeiculos;
+		this.arrayclientes = arrayclientes;
+		inputNum = new Scanner(System.in);
+		inputChar = new Scanner(System.in);
 	}
 	
 	int op = 0;
@@ -32,7 +51,7 @@ public class GerenciaAgenda {
 			System.out.println("============== --0-- =============");
 			System.out.println("\n");
 			System.out.println("Opção: ");
-			String opc = inputString.nextLine();
+			String opc = inputChar.nextLine();
 
 			try {
 				op = Integer.valueOf(opc).intValue();
@@ -79,7 +98,57 @@ public class GerenciaAgenda {
 	
 	
 	public void agendar() {
+		int posCliente, codCliente = 0, posVeiculo = 0, codVeiculo;
+		LocalDate dataInicio, dataPrevistaDevolucao, dataDevolucao = null;
 		
+		
+		GerenciaClientes gerCli = new GerenciaClientes(arrayclientes);
+		
+		System.out.println("Digite os dados a seguir");
+
+		gerCli.relatorio();
+		System.out.print("Código do cliente: ");
+		codCliente = inputNum.nextInt();
+		
+		GerenciaClientes gc = new GerenciaClientes(arrayclientes);
+		posCliente = gc.buscarClientePorCodigo(codCliente);
+		
+		GerenciaVeiculos gv = new GerenciaVeiculos(arrayVeiculos);
+		gv.relatorio();
+		
+		System.out.print("Escolha o veículo ");
+		System.out.print("Digite a placa: ");
+		String placa = inputChar.nextLine();
+		gv.buscarVeiculoPorPlaca(placa);
+		
+		System.out.print("Data de início: ");
+		dataInicio = LocalDate.now();
+		System.out.print("Data prevista para devolução: ");
+		dataPrevistaDevolucao = LocalDate.now();
+		System.out.print("Preço: ");
+		int preco = 0;
+		int multa = 0;
+		int status = 0;
+		
+		Veiculo tipoVeiculo = arrayVeiculos.get(posVeiculo);
+		if(tipoVeiculo instanceof Carro) {
+			Carro car = (Carro) tipoVeiculo;
+			ArrayList<Veiculo> veiculosAdd = new ArrayList<>();
+			veiculosAdd.add(car);
+			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status);
+			locacoes.add(loc);
+		}
+		
+		if(tipoVeiculo instanceof Caminhao) {
+			Caminhao car = (Caminhao) tipoVeiculo;
+			ArrayList<Veiculo> veiculosAdd = new ArrayList<>();
+			veiculosAdd.add(car);
+			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status);
+			locacoes.add(loc);
+		}
+		
+		
+		System.out.println("Agendamento realizado com sucesso!");
 	}
 	public void cancelar() {
 		

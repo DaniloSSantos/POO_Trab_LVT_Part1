@@ -404,5 +404,37 @@ public class GerenciaVeiculos {
 			System.out.println("Número de eixos:------------" + cami.getNumeroDeEixos());
 		}
 	}
+	
+	public int buscarVeiculoPorPlaca(String placa) {
+		int pos = 0;
+		String compara = null;
+
+
+		if (arrayVeiculos.size() != 0) {
+			for (Veiculo v : arrayVeiculos) {
+				compara = v.getPlaca();
+
+				if (compara == placa) {
+
+					break;
+				}
+				pos++;
+			}
+
+			if (compara == placa) {
+
+				return pos;
+			} else {
+				System.out.println("Veículo não encontrado!\n");
+
+				return -1;
+			}
+
+		} else {
+			System.out.println("Não existe veículo cadastrado!");
+			return -2;
+		}
+
+	}
 
 }
