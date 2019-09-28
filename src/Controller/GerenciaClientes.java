@@ -44,23 +44,23 @@ public class GerenciaClientes {
 
 			switch (op) {
 			case 1:
-				System.out.println("*** CADASTRAR VEÍCULO ***\n");
+				System.out.println("*** CADASTRAR CLIENTE ***\n");
 				incluir();
 				break;
 			case 2:
-				System.out.println("*** ALTERAR VEÍCULO ***\n");
+				System.out.println("*** ALTERAR CLIENTE ***\n");
 				alterar();
 				break;
 			case 3:
-				System.out.println("*** EXCLUIR VEÍCULO ***\n");
+				System.out.println("*** EXCLUIR CLIENTE ***\n");
 				excluir();
 				break;
 			case 4:
-				System.out.println("*** CONSULTAR VEÍCULO ***\n");
+				System.out.println("*** CONSULTAR CLIENTE ***\n");
 				consultar();
 				break;
 			case 5:
-				System.out.println("*** RELATÓRIO VEÍCULO ***\n");
+				System.out.println("*** RELATÓRIO CLIENTE ***\n");
 				relatorio();
 				break;
 			case 6:
@@ -105,7 +105,7 @@ public class GerenciaClientes {
 			LocalDate dataNascimento;
 			int codigo;
 			
-			codigo = gerarCodigo();
+			codigo = GerarCodigo.getProximoCodigo();
 			
 			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			System.out.print("CPF: ");
@@ -127,7 +127,7 @@ public class GerenciaClientes {
 			cnpj = inputChar.nextLine();
 			int codigo;
 			
-			codigo = gerarCodigo();
+			codigo = GerarCodigo.getProximoCodigo();
 			
 			Juridica j = new Juridica(nome, endereco, telefone, codigo, cnpj);
 			arrayclientes.add(j);
@@ -363,14 +363,6 @@ public class GerenciaClientes {
 		}
 	}
 	
-	int  gerarCodigo() {
-		int codigo = 0;
-		
-		Random gerar = new Random();
-		codigo = gerar.nextInt((6 - 1)+ 1)+ 1;
-		
-		return codigo;
-	}
 	
 	public int buscarClientePorCodigo(int codCliente) {
 		int posicao = 0;

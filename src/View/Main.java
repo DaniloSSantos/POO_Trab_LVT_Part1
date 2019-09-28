@@ -59,7 +59,7 @@ public class Main {
 				//
 				break;
 			case 5:
-				gerLoc.subMenu();
+				//gerLoc.subMenu();
 				break;
 			case 6:
 				System.out.println("Saindo do sistema...");

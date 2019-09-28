@@ -1,6 +1,7 @@
 package Controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -115,16 +116,16 @@ public class GerenciaAgenda {
 		GerenciaVeiculos gv = new GerenciaVeiculos(arrayVeiculos);
 		gv.relatorio();
 		
-		System.out.print("Escolha o veículo ");
-		System.out.print("Digite a placa: ");
+		System.out.print("\nEscolha o veículo \n");
+		System.out.print("\nDigite a placa: ");
 		String placa = inputChar.nextLine();
-		gv.buscarVeiculoPorPlaca(placa);
+		posVeiculo = gv.buscarVeiculoPorPlaca(placa);
 		
-		System.out.print("Data de início: ");
+		System.out.print("\nData de início: ");
 		dataInicio = LocalDate.now();
-		System.out.print("Data prevista para devolução: ");
+		System.out.print("\nData prevista para devolução: ");
 		dataPrevistaDevolucao = LocalDate.now();
-		System.out.print("Preço: ");
+		System.out.print("\nPreço: ");
 		int preco = 0;
 		int multa = 0;
 		int status = 0;
@@ -150,18 +151,54 @@ public class GerenciaAgenda {
 		System.out.println("Agendamento realizado com sucesso!");
 	}
 	public void cancelar() {
-		//
+		//escolher a posição que deseja cancelar
+		//acessar o array na posiçao escolhida
+		//modificar o status do objeto locacao (0 cancelado | 1 agendado)
+		int pos;
+		
+		System.out.println("Agendados:");
+		//GerenciaLocaca
+		
+		System.out.println("Escolha a posição que deseja cancelar");
+		pos = inputNum.nextInt();
+		
+		
 	}
 	public void alterar() {
 		
 	}
+	
 	public void relatorioVeiculosAgendados() {
-		
+		if (locacoes.size() != 0) {
+			for (Locacao l : locacoes) {
+				imprimir(l);
+				System.out.println("\n----x----x----x----x----x-----\n");
+			}
+		} else {
+			System.out.println("Não existe agendamentos!");
+		}
 	}
 	public void relatorioVeiculosLocadosEmDia() {
 		
 	}
 	public void relatorioVeiculosLocadosEmAtraso() {
+		
+	}
+	
+	public void imprimirAgendado(Locacao loc) {
+		
+		
+	}
+	
+	public void imprimir(Locacao l) {
+		DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		System.out.println("Cliente:------------" + l.getCliente().getNome());
+		System.out.println("Veículo(os):--------" + l.getVeiculos().toString());
+		System.out.println("Devolução para:-----" + l.getDataPrevistaDevolucao().format(formatoBR));
+		System.out.println("Valor R$:-----------" + l.getPreco());
+		System.out.println("Status:-------------" + l.getStatus());
+
 		
 	}
 
