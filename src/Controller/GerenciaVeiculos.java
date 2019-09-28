@@ -414,17 +414,20 @@ public class GerenciaVeiculos {
 			for (Veiculo v : arrayVeiculos) {
 				compara = v.getPlaca();
 
-				if (compara == placa) {
+				if (compara.equals(placa)) {
 
 					break;
 				}
 				pos++;
 			}
 
-			if (compara == placa) {
+			if (compara.equals(placa)) {
 
 				return pos;
 			} else {
+				System.out.println("compara= "+compara);
+				System.out.println("placa= "+placa);
+				System.out.println("pos= "+pos);
 				System.out.println("Veículo não encontrado!\n");
 
 				return -1;

@@ -105,9 +105,8 @@ public class GerenciaAgenda {
 		
 		GerenciaClientes gerCli = new GerenciaClientes(arrayclientes);
 		
-		System.out.println("Digite os dados a seguir");
-
 		gerCli.relatorio();
+		System.out.println("Digite os dados a seguir\n");
 		System.out.print("Código do cliente: ");
 		codCliente = inputNum.nextInt();
 		
