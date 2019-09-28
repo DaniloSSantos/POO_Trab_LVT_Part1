@@ -79,7 +79,7 @@ public class GerenciaClientes {
 		int op;
 		do {
 			System.out.println("-------------");
-			System.out.println("1 - Física    |");
+			System.out.println("1 - Física   |");
 			System.out.println("2 - Jurídica |");
 			System.out.println("-------------\n");
 			System.out.println("Opção: ");

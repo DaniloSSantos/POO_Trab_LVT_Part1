@@ -110,8 +110,7 @@ public class GerenciaAgenda {
 		System.out.print("Código do cliente: ");
 		codCliente = inputNum.nextInt();
 		
-		GerenciaClientes gc = new GerenciaClientes(arrayclientes);
-		posCliente = gc.buscarClientePorCodigo(codCliente);
+		posCliente = gerCli.buscarClientePorCodigo(codCliente);
 		
 		GerenciaVeiculos gv = new GerenciaVeiculos(arrayVeiculos);
 		gv.relatorio();
@@ -140,9 +139,9 @@ public class GerenciaAgenda {
 		}
 		
 		if(tipoVeiculo instanceof Caminhao) {
-			Caminhao car = (Caminhao) tipoVeiculo;
+			Caminhao cam = (Caminhao) tipoVeiculo;
 			ArrayList<Veiculo> veiculosAdd = new ArrayList<>();
-			veiculosAdd.add(car);
+			veiculosAdd.add(cam);
 			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status);
 			locacoes.add(loc);
 		}
@@ -151,7 +150,7 @@ public class GerenciaAgenda {
 		System.out.println("Agendamento realizado com sucesso!");
 	}
 	public void cancelar() {
-		
+		//
 	}
 	public void alterar() {
 		
