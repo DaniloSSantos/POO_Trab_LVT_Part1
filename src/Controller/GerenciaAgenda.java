@@ -104,16 +104,17 @@ public class GerenciaAgenda {
 		
 		
 		GerenciaClientes gerCli = new GerenciaClientes(arrayclientes);
-		
+		System.out.println("Clientes cadastrados:\n");
 		gerCli.relatorio();
-		System.out.println("Digite os dados a seguir\n");
-		System.out.print("Código do cliente: ");
+		
+		System.out.print("Digite o código do cliente escolhido: ");
 		codCliente = inputNum.nextInt();
 		
 		posCliente = gerCli.buscarClientePorCodigo(codCliente);
 		
 		GerenciaVeiculos gv = new GerenciaVeiculos(arrayVeiculos);
-		gv.relatorio();
+		System.out.println("Veículos disponíveis: ");
+		gv.listarVeiculo();
 		
 		System.out.print("\nEscolha o veículo \n");
 		System.out.print("\nDigite a placa: ");
@@ -127,7 +128,7 @@ public class GerenciaAgenda {
 		System.out.print("\nPreço: ");
 		int preco = 0;
 		int multa = 0;
-		int status = 0;
+		int status = 1; // 0 cancelado | 1 agendado
 		
 		Veiculo tipoVeiculo = arrayVeiculos.get(posVeiculo);
 		if(tipoVeiculo instanceof Carro) {
@@ -147,31 +148,47 @@ public class GerenciaAgenda {
 		}
 		
 		
-		System.out.println("Agendamento realizado com sucesso!");
+		System.out.println("\nAgendamento realizado com sucesso!");
 	}
+	
+	/*
+	 * cancela um agendamento que tenha sido realizado. Porém, o agendamento não
+	 * deve ser excluído da base de dados;
+	 */
 	public void cancelar() {
-		//escolher a posição que deseja cancelar
-		//acessar o array na posiçao escolhida
-		//modificar o status do objeto locacao (0 cancelado | 1 agendado)
-		int pos;
 		
-		System.out.println("Agendados:");
-		//GerenciaLocaca
-		
-		System.out.println("Escolha a posição que deseja cancelar");
-		pos = inputNum.nextInt();
-		
+		if(locacoes.size() !=0) {
+			int pos;
+			
+			System.out.println("\nAgendamentos:\n");
+			relatorioVeiculosAgendados();
+			
+			System.out.println("Escolha a posição que deseja cancelar:");
+			pos = inputNum.nextInt();
+			locacoes.get(pos).setStatus(0); // 0 cancelado | 1 agendado
+			
+			System.out.println("\nAgendamento cancelado com sucesso!");
+			
+		}
+		else {
+			System.out.println("\nNão existe agendamentos!");
+		}
 		
 	}
+
+	/* “alterar” dá a possibilidade de alteração do período de agendamento; */
 	public void alterar() {
 		
 	}
-	
+
 	public void relatorioVeiculosAgendados() {
 		if (locacoes.size() != 0) {
 			for (Locacao l : locacoes) {
-				imprimir(l);
-				System.out.println("\n----x----x----x----x----x-----\n");
+				
+				if(l.getStatus() == 1) {
+					imprimir(l);
+					System.out.println("\n----x----x----x----x----x-----\n");
+				}
 			}
 		} else {
 			System.out.println("Não existe agendamentos!");
@@ -191,7 +208,8 @@ public class GerenciaAgenda {
 	
 	public void imprimir(Locacao l) {
 		DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
+
+		System.out.println("POSIÇÃO-"+"["+locacoes.indexOf(l)+"]");
 		System.out.println("Cliente:------------" + l.getCliente().getNome());
 		System.out.println("Veículo(os):--------" + l.getVeiculos().toString());
 		System.out.println("Devolução para:-----" + l.getDataPrevistaDevolucao().format(formatoBR));

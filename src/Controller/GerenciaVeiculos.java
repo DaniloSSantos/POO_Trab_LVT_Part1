@@ -405,6 +405,38 @@ public class GerenciaVeiculos {
 		}
 	}
 	
+	public void listarVeiculo() {
+		
+		for (Veiculo v : arrayVeiculos) {
+			if (arrayVeiculos.size() != 0) {
+
+				System.out.printf("\nPlaca [%s]\t", v.getPlaca());
+				System.out.printf("Marca [%s]\t", v.getMarca());
+				System.out.printf("Modelo [%s]\t", v.getModelo());
+
+				if (v instanceof Carro) {
+					Carro carro = (Carro) v;
+					System.out.printf("Capaci. passag. [%d]\t", carro.getCapacidadePassageiros());
+					System.out.printf("Quant. portas [%d]\t", carro.getQuantidadePortas());
+
+				}
+
+				if (v instanceof Caminhao) {
+					Caminhao cami = (Caminhao) v;
+					System.out.printf("Capac. carga [%2f]\t", cami.getCapacidadeCarga());
+					System.out.printf("Número de eixos [%d]\t", cami.getNumeroDeEixos());
+
+				}
+
+
+			} else {
+				System.out.println("Não existe veículo cadastrado!");
+			}
+			System.out.println("\n----");
+		}
+
+	}
+	
 	public int buscarVeiculoPorPlaca(String placa) {
 		int pos = 0;
 		String compara = null;

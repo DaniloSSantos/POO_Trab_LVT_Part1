@@ -10,3 +10,8 @@ dia 27-09
 Classe GerenciaAgenda: criação do método cancelar, relatorioVeiculosAgendados.
 Classe GerenciaCliente: correções no gerarCodigo.
 Classe GerarCodigo: criação da classe e método statico getProximoCodigo.
+
+--------------------------
+dia 28-09
+Classe GerenciaVeiculos: criação do método listarVeiculo
+Classe GerenciaAgenda: correções no método agendar, implementação do método cancelar, melhorias no método relatorioVeiculosAgendados.
