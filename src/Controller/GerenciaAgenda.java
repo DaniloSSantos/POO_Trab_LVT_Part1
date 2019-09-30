@@ -27,6 +27,11 @@ public class GerenciaAgenda {
 		inputChar = new Scanner(System.in);
 	}
 	
+	public GerenciaAgenda() {
+		inputNum = new Scanner(System.in);
+		inputChar = new Scanner(System.in);
+	}
+	
 	public GerenciaAgenda(ArrayList<Veiculo> arrayVeiculos,
 			ArrayList<Cliente> arrayclientes, ArrayList<Locacao> locacoes, ArrayList<Agenda> arrayAgenda) {
 		super();
@@ -45,12 +50,13 @@ public class GerenciaAgenda {
 			System.out.println("\n   | SUBMENU Agenda |");
 			System.out.println("==================================");
 			System.out.println("1 - Agendar");
-			System.out.println("2 - Cancelar");
-			System.out.println("3 - Alterar");
-			System.out.println("4 - Relatório Veículos Agendados");
-			System.out.println("5 - Relatório Veículos em Dia");
-			System.out.println("6 - Relatório Veículos em Atraso");
-			System.out.println("7 - Voltar ao menu principal");
+			System.out.println("2 - Locar");
+			System.out.println("3 - Cancelar");
+			System.out.println("4 - Alterar");
+			System.out.println("5 - Relatório Veículos Agendados");
+			System.out.println("6 - Relatório Veículos em Dia");
+			System.out.println("7 - Relatório Veículos em Atraso");
+			System.out.println("8 - Voltar ao menu principal");
 			System.out.println("============== --0-- =============");
 			System.out.println("\n");
 			System.out.println("Opção: ");
@@ -65,26 +71,31 @@ public class GerenciaAgenda {
 					agendar();
 					break;
 				case 2:
+					System.out.println("*** LOCAR ***");
+					//GerenciaLocacao gl = new GerenciaLocacao(locacoes);
+					locar();
+					break;
+				case 3:
 					System.out.println("*** CANCELAR ***");
 					cancelar();
 					break;
-				case 3:
+				case 4:
 					System.out.println("*** ALTERAR ***");
 					alterar();
 					break;
-				case 4:
+				case 5:
 					System.out.println("*** RELATÓRIO ***");
 					relatorioVeiculosAgendados();
 					break;
-				case 5:
+				case 6:
 					System.out.println("*** RELATÓRIO ***");
 					relatorioVeiculosLocadosEmDia();
 					break;
-				case 6:
+				case 7:
 					System.out.println("*** RELATÓRIO ***");
 					relatorioVeiculosLocadosEmAtraso();
 					break;
-				case 7:
+				case 8:
 					System.out.println("Voltar ao menu principal");
 					break;
 
@@ -96,7 +107,7 @@ public class GerenciaAgenda {
 			} catch (Exception e) {
 				System.out.println("ATENÇÃO! Tente novamente.");
 			}
-		} while (op != 7);
+		} while (op != 8);
 	}
 	
 	
@@ -153,6 +164,31 @@ public class GerenciaAgenda {
 		System.out.println("\n\nAgendamento realizado com sucesso!");
 	}
 	
+	public void locar() {
+		int pos= 0;
+		
+		if (!locacoes.isEmpty()) {
+			
+			System.out.println("Agendamentos:\n");
+			relatorioVeiculosAgendados();
+			System.out.println("Qual posição deseja locar?");
+			pos = inputNum.nextInt();
+
+			if (pos >= 0 && pos < locacoes.size()) {
+				LocalDate dataInicio = LocalDate.now();
+				locacoes.get(pos).setDataInicio(dataInicio);				
+				locacoes.get(pos).setStatus(3);
+				
+				System.out.println("\nLocação realizada com sucesso!");
+
+			} else {
+				System.out.println("Posição inexistente!");
+			}
+
+		} else {
+			System.out.println("Não existe agendamento!");
+		}
+	}
 	
 	public void cancelar() {
 		
@@ -174,11 +210,7 @@ public class GerenciaAgenda {
 		}
 		
 	}
-	/*
-	 * cancela um agendamento que tenha sido realizado. Porém, o agendamento não
-	 * deve ser excluído da base de dados;
-	 */
-	
+		
 	public void alterar() {
 		/* “alterar” dá a possibilidade de alteração do período de agendamento; */
 		LocalDate dataInicio = null, dataPrevistaDevolucao = null;
