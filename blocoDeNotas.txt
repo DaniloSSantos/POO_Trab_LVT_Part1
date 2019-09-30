@@ -18,4 +18,4 @@ Classe GerenciaAgenda: correções no método agendar, implementação do métod
 
 --------------------------
 dia 29-09
-Classe GerenciaAgenda: implementação do método alterar,
+Classe GerenciaAgenda: correções no código, implementação do método alterar, listarNumerado e imprimirNumerado.

@@ -150,7 +150,7 @@ public class GerenciaAgenda {
 		}
 		
 		
-		System.out.println("\nAgendamento realizado com sucesso!");
+		System.out.println("\n\nAgendamento realizado com sucesso!");
 	}
 	
 	
@@ -278,11 +278,12 @@ public class GerenciaAgenda {
 		System.out.println("Data de início:-----" + l.getDataInicio().format(formatoBR));
 		System.out.println("Devolução para:-----" + l.getDataPrevistaDevolucao().format(formatoBR));
 		System.out.println("Valor R$:-----------" + l.getPreco());
-		System.out.println("Status:-------------" + l.getStatus());
+		String status = (l.getStatus() == 1) ? "agendado":"cancelado";
+		System.out.println("Status:-------------" + status);
 		
 	}
 	
-	public void listarNumerado() {
+	public void  listarNumerado() {
 		if (locacoes.size() != 0) {
 			for (Locacao l : locacoes) {
 				
