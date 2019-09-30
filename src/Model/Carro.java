@@ -9,8 +9,8 @@ public class Carro extends Veiculo {
 		this.capacidadePassageiros = capacidadePassageiros;
 		this.quantidadePortas = quantidadePortas;
 	}
-
-
+	
+	
 	public int getCapacidadePassageiros() {
 		return capacidadePassageiros;
 	}

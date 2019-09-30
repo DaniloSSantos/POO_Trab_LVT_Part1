@@ -160,9 +160,9 @@ public class GerenciaClientes {
 
 					if (resp2 == 1) {
 						arrayclientes.get(pos).setNome(nome);
-						System.out.println("OK, alteado com sucesso!");
+						System.out.println("OK, alterado com sucesso!");
 					} else {
-						System.out.println("Certo, não foi alteado");
+						System.out.println("Certo, não foi alterado");
 					}
 
 					break;
@@ -174,9 +174,9 @@ public class GerenciaClientes {
 
 					if (resp2 == 1) {
 						arrayclientes.get(pos).setEndereco(endereco);
-						System.out.println("OK, alteado com sucesso!");
+						System.out.println("OK, alterado com sucesso!");
 					} else {
-						System.out.println("Certo, não foi alteado");
+						System.out.println("Certo, não foi alterado");
 					}
 					break;
 				case 3:
@@ -188,9 +188,9 @@ public class GerenciaClientes {
 
 					if (resp2 == 1) {
 						arrayclientes.get(pos).setTelefone(telefone);
-						System.out.println("OK, alteado com sucesso!");
+						System.out.println("OK, alterado com sucesso!");
 					} else {
-						System.out.println("Certo, não foi alteado");
+						System.out.println("Certo, não foi alterado");
 					}
 
 					break;

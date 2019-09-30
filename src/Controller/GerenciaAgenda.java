@@ -9,6 +9,8 @@ import Model.Agenda;
 import Model.Caminhao;
 import Model.Carro;
 import Model.Cliente;
+import Model.Fisica;
+import Model.Juridica;
 import Model.Locacao;
 import Model.Veiculo;
 
@@ -151,10 +153,7 @@ public class GerenciaAgenda {
 		System.out.println("\nAgendamento realizado com sucesso!");
 	}
 	
-	/*
-	 * cancela um agendamento que tenha sido realizado. Porém, o agendamento não
-	 * deve ser excluído da base de dados;
-	 */
+	
 	public void cancelar() {
 		
 		if(locacoes.size() !=0) {
@@ -175,9 +174,73 @@ public class GerenciaAgenda {
 		}
 		
 	}
-
-	/* “alterar” dá a possibilidade de alteração do período de agendamento; */
+	/*
+	 * cancela um agendamento que tenha sido realizado. Porém, o agendamento não
+	 * deve ser excluído da base de dados;
+	 */
+	
 	public void alterar() {
+		/* “alterar” dá a possibilidade de alteração do período de agendamento; */
+		LocalDate dataInicio = null, dataPrevistaDevolucao = null;
+		String data;
+		
+		int pos= 0, resp = 0, resp2 = 0;
+		DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		if (!locacoes.isEmpty()) {
+			System.out.println("Informações atuais:\n");
+			listarNumerado();
+			System.out.println("Qual posição deseja alterar?");
+			pos = inputNum.nextInt();
+
+			if (pos >= 0 && pos < locacoes.size()) {
+								
+				System.out.println("\nDigite o número correspondente ao campo que deseja alterar:");
+				resp = inputNum.nextInt();
+				
+				switch (resp) {
+				case 1:
+					System.out.print("Data de início: ");
+					System.out.print("\nformato dd/MM/yyyy\n");
+					data = null;
+					data = inputChar.nextLine();
+					dataInicio = LocalDate.parse(data, formatoBR);
+					System.out.println("Alterar? 1.sim | 2.não");
+					resp2 = inputNum.nextInt();
+
+					if (resp2 == 1) {
+						locacoes.get(pos).setDataInicio(dataInicio);
+						System.out.println("OK, alterado com sucesso!");
+					} else {
+						System.out.println("Certo, não foi alterado");
+					}
+
+					break;
+				case 2:
+					System.out.print("\nData prevista para devolução: ");
+					System.out.print("\nformato dd/MM/yyyy\n");
+					data = inputChar.nextLine();
+					dataPrevistaDevolucao = LocalDate.parse(data, formatoBR);
+					System.out.println("Alterar? 1.sim | 2.não");
+					resp2 = inputNum.nextInt();
+
+					if (resp2 == 1) {
+						locacoes.get(pos).setDataPrevistaDevolucao(dataPrevistaDevolucao);
+						System.out.println("OK, alterado com sucesso!");
+					} else {
+						System.out.println("Certo, não foi alterado");
+					}
+					break;
+
+				}
+
+			} else {
+				System.out.println("Posição inexistente!");
+			}
+
+		} else {
+			System.out.println("Não existe agendamento!");
+		}
 		
 	}
 
@@ -212,10 +275,34 @@ public class GerenciaAgenda {
 		System.out.println("POSIÇÃO-"+"["+locacoes.indexOf(l)+"]");
 		System.out.println("Cliente:------------" + l.getCliente().getNome());
 		System.out.println("Veículo(os):--------" + l.getVeiculos().toString());
+		System.out.println("Data de início:-----" + l.getDataInicio().format(formatoBR));
 		System.out.println("Devolução para:-----" + l.getDataPrevistaDevolucao().format(formatoBR));
 		System.out.println("Valor R$:-----------" + l.getPreco());
 		System.out.println("Status:-------------" + l.getStatus());
+		
+	}
+	
+	public void listarNumerado() {
+		if (locacoes.size() != 0) {
+			for (Locacao l : locacoes) {
+				
+				if(l.getStatus() == 1) {
+					imprimirNumerado(l);
+					System.out.println("\n============================\n");
+				}
+			}
+		} else {
+			System.out.println("Não existe agendamentos!");
+		}
+	}
+	
+	public void imprimirNumerado(Locacao l) {
+		DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+		System.out.println("POSIÇÃO-"+"["+locacoes.indexOf(l)+"]");
+		System.out.println("Cliente:------------------------" + l.getCliente().getNome());
+		System.out.println("1.Data de início:---------------" + l.getDataInicio().format(formatoBR));
+		System.out.println("2.Data prevista para devolução:-" + l.getDataPrevistaDevolucao().format(formatoBR));
 		
 	}
 

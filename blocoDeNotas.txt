@@ -1,4 +1,4 @@
-dia 26-09
+9dia 26-09
 Classe Cliente: criação do método construtor, buscarCliente.
 Classe GerenciaCliente: criação do método gerarCodigo, buscarClientePorCodigo.
 Classe GerenciaVeiculos: criação do método buscarVeiculoPorPlaca.
@@ -15,3 +15,7 @@ Classe GerarCodigo: criação da classe e método statico getProximoCodigo.
 dia 28-09
 Classe GerenciaVeiculos: criação do método listarVeiculo
 Classe GerenciaAgenda: correções no método agendar, implementação do método cancelar, melhorias no método relatorioVeiculosAgendados.
+
+--------------------------
+dia 29-09
+Classe GerenciaAgenda: implementação do método alterar,

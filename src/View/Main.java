@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Agenda;
+import Model.Carro;
 import Model.Cliente;
+import Model.Juridica;
 import Model.Locacao;
 import Model.Veiculo;
 import Controller.GerenciaAgenda;
@@ -44,6 +46,21 @@ public class Main {
 			System.out.println("============== --0-- ==============");
 			System.out.print("Opção: ");
 			opc = input.nextInt();
+			//---------------------------------------------------------//
+			for(int i=0; i <=4; i++){//carro
+				String dado= Integer.toString(i);
+	            Carro carro = new Carro(dado,dado,i,i,dado,i,i);
+	            
+	            arrayVeiculos.add(carro);
+	        }
+			for(int i=0; i <=4; i++){//cliente
+				String dado= Integer.toString(i);
+	            Juridica juri = new Juridica(dado,dado,dado,i,dado);
+	            
+	            arrayclientes.add(juri);
+	        }
+			
+			//---------------------------------------------------------//
 
 			switch (opc) {
 			case 1:
