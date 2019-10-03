@@ -1,6 +1,7 @@
 package Controller;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -280,7 +281,7 @@ public class GerenciaAgenda {
 		if (locacoes.size() != 0) {
 			for (Locacao l : locacoes) {
 				
-				if(l.getStatus() == 1) {
+				if(l.getStatus() == 1) { // 0 cancelado | 1 agendado | 2 locado
 					imprimir(l);
 					System.out.println("\n----x----x----x----x----x-----\n");
 				}
@@ -290,10 +291,33 @@ public class GerenciaAgenda {
 		}
 	}
 	public void relatorioVeiculosLocadosEmDia() {
-		
+		if (locacoes.size() != 0) {
+			for (Locacao l : locacoes) {
+				
+				if(l.getStatus() == 2) {
+					imprimir(l);
+					System.out.println("\n----x----x----x----x----x-----\n");
+				}
+			}
+		} else {
+			System.out.println("Não existe veículo locado!");
+		}
 	}
 	public void relatorioVeiculosLocadosEmAtraso() {
-		
+		if (locacoes.size() != 0) {
+			for (Locacao l : locacoes) {
+				LocalDate dataAgora = LocalDate.now();
+				LocalDate dataPrevistaDevolucao = l.getDataPrevistaDevolucao();
+				if(l.getStatus() == 2 && dataAgora.isAfter(dataPrevistaDevolucao)) {
+					Period diasDeAtraso = Period.between(dataPrevistaDevolucao, dataAgora);
+					System.out.println("\nDias de atraso: "+ diasDeAtraso);
+					imprimir(l);
+					System.out.println("\n----x----x----x----x----x-----\n");
+				}
+			}
+		} else {
+			System.out.println("Não existe veículo locado!");
+		}
 	}
 	
 	public void imprimirAgendado(Locacao loc) {
