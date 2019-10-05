@@ -135,12 +135,19 @@ public class GerenciaAgenda {
 		String placa = inputChar.nextLine();
 		posVeiculo = gv.buscarVeiculoPorPlaca(placa);
 		
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		System.out.println("formato dd/MM/yyyy");
 		System.out.print("\nData de início: ");
-		dataInicio = LocalDate.now();
+		String dataDeInico = inputChar.nextLine();
+		dataInicio = LocalDate.parse(dataDeInico, formato);
+		System.out.println("formato dd/MM/yyyy");
 		System.out.print("\nData prevista para devolução: ");
-		dataPrevistaDevolucao = LocalDate.now();
+		String dataPrevDevolucao = inputChar.nextLine();
+		dataPrevistaDevolucao = LocalDate.parse(dataPrevDevolucao, formato);
+		
 		System.out.print("\nPreço: ");
-		int preco = 0;
+		int preco = inputNum.nextInt();
+		
 		int multa = 0;
 		int status = 1; // 0 cancelado | 1 agendado
 		
@@ -178,7 +185,7 @@ public class GerenciaAgenda {
 			if (pos >= 0 && pos < locacoes.size()) {
 				LocalDate dataInicio = LocalDate.now();
 				locacoes.get(pos).setDataInicio(dataInicio);				
-				locacoes.get(pos).setStatus(3);
+				locacoes.get(pos).setStatus(2);
 				
 				System.out.println("\nLocação realizada com sucesso!");
 
@@ -284,6 +291,8 @@ public class GerenciaAgenda {
 				if(l.getStatus() == 1) { // 0 cancelado | 1 agendado | 2 locado
 					imprimir(l);
 					System.out.println("\n----x----x----x----x----x-----\n");
+				}else {
+					System.out.println("Não existe veículo agendado!");
 				}
 			}
 		} else {
@@ -297,10 +306,12 @@ public class GerenciaAgenda {
 				if(l.getStatus() == 2) {
 					imprimir(l);
 					System.out.println("\n----x----x----x----x----x-----\n");
+				}else {
+					System.out.println("Não existe veículo locado!");
 				}
 			}
 		} else {
-			System.out.println("Não existe veículo locado!");
+			System.out.println("Atenção! Primeiro agende uma locação.");
 		}
 	}
 	public void relatorioVeiculosLocadosEmAtraso() {
@@ -313,17 +324,15 @@ public class GerenciaAgenda {
 					System.out.println("\nDias de atraso: "+ diasDeAtraso);
 					imprimir(l);
 					System.out.println("\n----x----x----x----x----x-----\n");
+				}else {
+					System.out.println("Não existe veículo em atraso!");
 				}
 			}
 		} else {
-			System.out.println("Não existe veículo locado!");
+			System.out.println("Atenção! Primeiro agende uma locação.");
 		}
 	}
 	
-	public void imprimirAgendado(Locacao loc) {
-		
-		
-	}
 	
 	public void imprimir(Locacao l) {
 		DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -334,8 +343,18 @@ public class GerenciaAgenda {
 		System.out.println("Data de início:-----" + l.getDataInicio().format(formatoBR));
 		System.out.println("Devolução para:-----" + l.getDataPrevistaDevolucao().format(formatoBR));
 		System.out.println("Valor R$:-----------" + l.getPreco());
-		String status = (l.getStatus() == 1) ? "agendado":"cancelado";
-		System.out.println("Status:-------------" + status);
+		if(l.getStatus() == 0) {
+			String status = "cancelado";
+			System.out.println("Status:-------------" + status);
+		}
+		if(l.getStatus() == 1) {
+			String status = "agendado";
+			System.out.println("Status:-------------" + status);
+		}
+		if(l.getStatus() == 2) {
+			String status = "locado";
+			System.out.println("Status:-------------" + status);
+		}
 		
 	}
 	

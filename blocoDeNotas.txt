@@ -24,8 +24,10 @@ Classe GerenciaAgenda: correções no código, implementação do método altera
 dia 30-09
 Classe GerenciaAgenda: implementação do método locar.
 
-“relatorioVeiculosLocadosEmDia” lista todos os veículos que estão
-locados;
-• “relatorioVeiculosLocadosEmAtraso” lista todos os veículos que foram
-locados e que ainda não foram devolvidos mas já passaram da data
-limite de devolução;
+--------------------------
+dia 02-10
+Classe GerenciaAgenda: implementação do método relatorioVeiculosLocadosEmDia e relatorioVeiculosLocadosEmAtraso.
+
+--------------------------
+dia 05-10
+Classe GerenciaAgenda: melhorias e correções em todos os métodos.
