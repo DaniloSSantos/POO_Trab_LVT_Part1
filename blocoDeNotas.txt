@@ -31,3 +31,5 @@ Classe GerenciaAgenda: implementação do método relatorioVeiculosLocadosEmDia 
 --------------------------
 dia 05-10
 Classe GerenciaAgenda: melhorias e correções em todos os métodos.
+
+Classe GerenciaCaixa: implementação do subMenu.
