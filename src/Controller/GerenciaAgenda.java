@@ -150,13 +150,14 @@ public class GerenciaAgenda {
 		
 		int multa = 0;
 		int status = 1; // 0 cancelado | 1 agendado
+		boolean pago = false;
 		
 		Veiculo tipoVeiculo = arrayVeiculos.get(posVeiculo);
 		if(tipoVeiculo instanceof Carro) {
 			Carro car = (Carro) tipoVeiculo;
 			ArrayList<Veiculo> veiculosAdd = new ArrayList<>();
 			veiculosAdd.add(car);
-			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status);
+			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status, pago);
 			locacoes.add(loc);
 		}
 		
@@ -164,7 +165,7 @@ public class GerenciaAgenda {
 			Caminhao cam = (Caminhao) tipoVeiculo;
 			ArrayList<Veiculo> veiculosAdd = new ArrayList<>();
 			veiculosAdd.add(cam);
-			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status);
+			Locacao loc = new Locacao(arrayclientes.get(posCliente), veiculosAdd, dataInicio, dataPrevistaDevolucao, dataDevolucao, preco, multa, status, pago);
 			locacoes.add(loc);
 		}
 		
@@ -301,6 +302,7 @@ public class GerenciaAgenda {
 	}
 	public void relatorioVeiculosLocadosEmDia() {
 		if (locacoes.size() != 0) {
+			System.out.println("Veículos locados:");
 			for (Locacao l : locacoes) {
 				
 				if(l.getStatus() == 2) {
@@ -381,5 +383,6 @@ public class GerenciaAgenda {
 		System.out.println("2.Data prevista para devolução:-" + l.getDataPrevistaDevolucao().format(formatoBR));
 		
 	}
-
+	
+	
 }

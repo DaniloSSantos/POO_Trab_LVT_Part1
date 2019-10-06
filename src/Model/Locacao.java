@@ -12,10 +12,11 @@ public class Locacao {
 	private double preco;
 	private double multa;
 	private int status;
+	private boolean pago;
 	
 	
 	public Locacao(Cliente cliente, ArrayList<Veiculo> veiculos, LocalDate dataInicio, LocalDate dataPrevistaDevolucao,
-			LocalDate dataDevolucao, double preco, double multa, int status) {
+			LocalDate dataDevolucao, double preco, double multa, int status, boolean pago) {
 		super();
 		this.cliente = cliente;
 		this.veiculos = veiculos;
@@ -25,6 +26,7 @@ public class Locacao {
 		this.preco = preco;
 		this.multa = multa;
 		this.status = status;
+		this.pago = pago;
 	}
 
 
@@ -106,4 +108,15 @@ public class Locacao {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+
+	public boolean getPago() {
+		return pago;
+	}
+
+
+	public void setPago(boolean pago) {
+		this.pago = pago;
+	}
+	
 }

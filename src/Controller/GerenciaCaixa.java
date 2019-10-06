@@ -1,5 +1,7 @@
 package Controller;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,7 +81,56 @@ public class GerenciaCaixa {
 	}
 	
 	public void pagamentoLocacao() {
+		int pos, resp;
+
+		GerenciaAgenda gerAg = new GerenciaAgenda();
 		
+		if (!locacoes.isEmpty()) {
+
+			System.out.println("Veículo(s) locado(s):\n");
+			gerAg.relatorioVeiculosLocadosEmDia();
+			System.out.println("Qual posição deseja pagar?");
+			pos = inputNum.nextInt();
+
+			if (pos >= 0 && pos < locacoes.size()) {
+				LocalDate dataInicio = locacoes.get(pos).getDataInicio();
+				LocalDate dataPrevistaDevolucao = locacoes.get(pos).getDataPrevistaDevolucao();
+				LocalDate dataDevolucao = LocalDate.now();
+				double preco = locacoes.get(pos).getPreco();
+				double multa = 0;
+				double total = 0;
+				
+				if(dataDevolucao.isAfter(dataPrevistaDevolucao)) {
+					Period periodo = Period.between(dataPrevistaDevolucao, dataDevolucao);
+					double diasDeAtraso = periodo.getDays();
+					System.out.println("ATRASADO");
+					System.out.println("Dias de atraso: "+ periodo.getDays());
+					
+					multa = 0.3;
+					total = preco *(1+multa);
+					total += Math.pow(total, diasDeAtraso);
+					
+					System.out.println("Total a pagar: R$"+ total);
+					
+					
+				}else {
+					
+				}
+				
+				System.out.println("Total a pagar: R$"+ total);
+				
+				locacoes.get(pos).setPago(true);
+
+				System.out.println("\nPagamento realizado com sucesso!");
+
+			} else {
+				System.out.println("Posição inexistente!");
+			}
+
+		} else {
+			System.out.println("Não existe veículo locado!");
+		}
+
 	}
 	
 	public void totalArrecadado() {
