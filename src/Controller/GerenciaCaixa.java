@@ -102,28 +102,40 @@ public class GerenciaCaixa {
 				
 				if(dataDevolucao.isAfter(dataPrevistaDevolucao)) {
 					Period periodo = Period.between(dataPrevistaDevolucao, dataDevolucao);
-					double diasDeAtraso = periodo.getDays();
 					System.out.println("ATRASADO");
 					System.out.println("Dias de atraso: "+ periodo.getDays());
 					
 					multa = 0.3;
 					total = calcularJuros(periodo.getDays(), preco, multa);
 					
-					
 					System.out.println("Total a pagar: R$"+ total);
-					
+					System.out.println("\nConfirmar pagamento?\n1.Sim | 2.Não");
+					resp = inputNum.nextInt();
+					if(resp == 1) {
+						locacoes.get(pos).setStatus(3);
+						locacoes.get(pos).setMulta(total);
+						System.out.println("\nPagamento realizado com sucesso!");
+					}else {
+						System.out.println("\nPagamento não realizado!");
+					}
 					
 				}else {
 					System.out.println("EM DIAS");
 					total = preco;
 					
 					System.out.println("Total a pagar: R$"+ total);
+					System.out.println("\nConfirmar pagamento?\n1.Sim | 2.Não");
+					resp = inputNum.nextInt();
+					
+					if(resp == 1) {
+						locacoes.get(pos).setStatus(3);
+						locacoes.get(pos).setMulta(0);
+						System.out.println("\nPagamento realizado com sucesso!");
+					}else {
+						System.out.println("\nPagamento não realizado!");
+					}
 				}
 				
-								
-				locacoes.get(pos).setStatus(3);
-
-				System.out.println("\nPagamento realizado com sucesso!");
 
 			} else {
 				System.out.println("Posição inexistente!");
