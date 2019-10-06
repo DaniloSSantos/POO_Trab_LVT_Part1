@@ -33,3 +33,21 @@ dia 05-10
 Classe GerenciaAgenda: melhorias e correções em todos os métodos.
 
 Classe GerenciaCaixa: implementação do subMenu.
+
+
+double Preco=1000, Juros=10, parc,total=0;
+        int aux, diasDeAtraso=5;
+        
+        for(aux=1; aux <= diasDeAtraso; aux++){
+            parc = calcularJuros(aux, Preco, Juros);
+            total += parc;
+            System.out.println("parcela: R$"+parc);
+        }
+        
+        System.out.println("Total "+total);
+    }
+    public static double calcularJuros(int dias, double preco, double juros){
+        double tot = 0;
+        tot = preco * Math.pow(1 + juros/100, dias);
+        return  tot;
+    }

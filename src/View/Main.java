@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Agenda;
+import Model.Caixa;
 import Model.Carro;
 import Model.Cliente;
 import Model.Juridica;
 import Model.Locacao;
 import Model.Veiculo;
 import Controller.GerenciaAgenda;
+import Controller.GerenciaCaixa;
 import Controller.GerenciaClientes;
 import Controller.GerenciaLocacao;
 import Controller.GerenciaVeiculos;
@@ -25,10 +27,10 @@ public class Main {
 		GerenciaClientes gerCli = new GerenciaClientes(arrayclientes);
 		
 		ArrayList<Locacao> locacoes = new ArrayList<>();
-		GerenciaLocacao gerLoc = new GerenciaLocacao(locacoes);
 		
-		ArrayList<Agenda> arrayAgenda = new ArrayList<>();
-		GerenciaAgenda gerAg = new GerenciaAgenda(arrayVeiculos, arrayclientes, locacoes, arrayAgenda);
+		GerenciaAgenda gerAg = new GerenciaAgenda(arrayVeiculos, arrayclientes, locacoes);
+		
+		GerenciaCaixa gerCa	= new GerenciaCaixa(arrayVeiculos, arrayclientes, locacoes);
 
 		Scanner input = new Scanner(System.in);
 		
@@ -64,7 +66,7 @@ public class Main {
 			
 			switch (opc) {
 			case 1:
-				//caixa
+				gerCa.subMenu();
 				break;
 			case 2:
 				gerCli.subMenu();

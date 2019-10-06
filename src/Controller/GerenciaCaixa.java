@@ -10,16 +10,16 @@ import Model.Locacao;
 import Model.Veiculo;
 
 public class GerenciaCaixa {
-	ArrayList<Locacao> locacoes;
 	ArrayList<Veiculo> arrayVeiculos;
 	ArrayList<Cliente> arrayclientes;
+	ArrayList<Locacao> locacoes;
 	
 	Scanner inputNum;
 	Scanner inputChar;
 	
 	
-	public GerenciaCaixa(ArrayList<Locacao> locacoes, ArrayList<Veiculo> arrayVeiculos,
-			ArrayList<Cliente> arrayclientes) {
+	public GerenciaCaixa(ArrayList<Veiculo> arrayVeiculos,
+			ArrayList<Cliente> arrayclientes, ArrayList<Locacao> locacoes) {
 		super();
 		this.locacoes = locacoes;
 		this.arrayVeiculos = arrayVeiculos;
@@ -76,18 +76,19 @@ public class GerenciaCaixa {
 				System.out.println("ATENÇÃO! Digite somente números");
 			} catch (Exception e) {
 				System.out.println("ATENÇÃO! Tente novamente.");
+				e.printStackTrace();
 			}
 		} while (op != 5);
 	}
 	
 	public void pagamentoLocacao() {
 		int pos, resp;
+		double multa = 0;
 
-		GerenciaAgenda gerAg = new GerenciaAgenda();
+		GerenciaAgenda gerAg = new GerenciaAgenda(arrayVeiculos, arrayclientes, locacoes);
 		
 		if (!locacoes.isEmpty()) {
 
-			System.out.println("Veículo(s) locado(s):\n");
 			gerAg.relatorioVeiculosLocadosEmDia();
 			System.out.println("Qual posição deseja pagar?");
 			pos = inputNum.nextInt();
@@ -97,7 +98,6 @@ public class GerenciaCaixa {
 				LocalDate dataPrevistaDevolucao = locacoes.get(pos).getDataPrevistaDevolucao();
 				LocalDate dataDevolucao = LocalDate.now();
 				double preco = locacoes.get(pos).getPreco();
-				double multa = 0;
 				double total = 0;
 				
 				if(dataDevolucao.isAfter(dataPrevistaDevolucao)) {
@@ -107,19 +107,21 @@ public class GerenciaCaixa {
 					System.out.println("Dias de atraso: "+ periodo.getDays());
 					
 					multa = 0.3;
-					total = preco *(1+multa);
-					total += Math.pow(total, diasDeAtraso);
+					total = calcularJuros(periodo.getDays(), preco, multa);
+					
 					
 					System.out.println("Total a pagar: R$"+ total);
 					
 					
 				}else {
+					System.out.println("EM DIAS");
+					total = preco;
 					
+					System.out.println("Total a pagar: R$"+ total);
 				}
 				
-				System.out.println("Total a pagar: R$"+ total);
-				
-				locacoes.get(pos).setPago(true);
+								
+				locacoes.get(pos).setStatus(3);
 
 				System.out.println("\nPagamento realizado com sucesso!");
 
@@ -144,5 +146,27 @@ public class GerenciaCaixa {
 	public void totalAReceber() {
 		
 	}
+	
+	public static double calcularJuros(int dias, double preco, double juros){
+        double total = 0;
+        total = preco * Math.pow(1 + juros/100, dias);
+        return  total;
+    }
+    
+    public static void calcularJurosEmostrar(int dias, double preco, double juros){
+        double total = 0;
+        double parc;
+        int aux;
+        
+        
+        for(aux=1; aux <= dias; aux++){
+            total = preco * Math.pow(1 + juros/100, dias);
+            parc = total;
+            System.out.println("dia "+aux+ ": R$"+parc);
+        }
+        
+        System.out.println("\n Total a pagar= "+total);
+        System.out.println("\n\n");
+    }
 	
 }
