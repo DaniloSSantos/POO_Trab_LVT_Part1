@@ -34,3 +34,10 @@ Classe GerenciaAgenda: melhorias e correções em todos os métodos.
 
 Classe GerenciaCaixa: implementação do subMenu.
 
+--------------------------
+dia 06-10
+Classe GerenciaAgenda: melhorias e correções no código.
+Classe GerenciaCaixa: implementação do método pagamentoLocacao.
+Classe GerenciaCaixa: melhorias no método pagamentoLocacao.
+Classe GerenciaCaixa: implementação dos métodos totalArrecadado, calcularTotalArrecadado, imprimir.
+

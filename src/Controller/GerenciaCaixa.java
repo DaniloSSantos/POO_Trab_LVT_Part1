@@ -2,6 +2,7 @@ package Controller;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -148,7 +149,20 @@ public class GerenciaCaixa {
 	}
 	
 	public void totalArrecadado() {
-		
+		if (locacoes.size() != 0) {
+			double total = 0;
+
+			for (Locacao l : locacoes) {
+
+				imprimir(l);
+				
+				System.out.println("------------------------------");
+			}
+			for (Locacao l : locacoes) {
+				total += calcularTotalArrecadado(l);
+			}
+			System.out.println("\nTotal arrecadado = "+ total);
+		}
 	}
 	
 	public void totalArrecadadoPorPeriodo() {
@@ -179,6 +193,37 @@ public class GerenciaCaixa {
         
         System.out.println("\n Total a pagar= "+total);
         System.out.println("\n\n");
+    }
+    
+    public void imprimir(Locacao l) {
+		//DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		if(l.getStatus() == 3) {
+			System.out.println("POSIÇÃO-"+"["+locacoes.indexOf(l)+"]");
+			System.out.println("Cliente:--------" + l.getCliente().getNome());
+			
+			if(l.getMulta() == 0) {
+				System.out.println("Valor pago:-----"+ l.getPreco());
+				
+			}else {
+				System.out.println("Valor + Multa:--"+ l.getMulta());
+			}
+			
+		}
+		
+	}
+    
+    public double calcularTotalArrecadado(Locacao l) {
+    	double total = 0;
+    	if(l.getStatus() == 3) {
+    		if(l.getMulta() == 0) {
+    			total = l.getPreco();
+    		}else {
+    			total = l.getMulta();
+    		}
+    		
+    	}
+    	
+    	return total;
     }
 	
 }
