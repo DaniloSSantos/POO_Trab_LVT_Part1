@@ -115,6 +115,7 @@ public class GerenciaCaixa {
 					if(resp == 1) {
 						locacoes.get(pos).setStatus(3);
 						locacoes.get(pos).setMulta(total);
+						locacoes.get(pos).setDataDevolucao(dataDevolucao);
 						System.out.println("\nPagamento realizado com sucesso!");
 					}else {
 						System.out.println("\nPagamento não realizado!");
@@ -131,6 +132,7 @@ public class GerenciaCaixa {
 					if(resp == 1) {
 						locacoes.get(pos).setStatus(3);
 						locacoes.get(pos).setMulta(0);
+						locacoes.get(pos).setDataDevolucao(dataDevolucao);
 						System.out.println("\nPagamento realizado com sucesso!");
 					}else {
 						System.out.println("\nPagamento não realizado!");
@@ -153,8 +155,9 @@ public class GerenciaCaixa {
 			double total = 0;
 
 			for (Locacao l : locacoes) {
-
-				imprimir(l);
+				if (l.getStatus() == 3) {
+					imprimir(l);
+				}
 				
 				System.out.println("------------------------------");
 			}
@@ -166,11 +169,62 @@ public class GerenciaCaixa {
 	}
 	
 	public void totalArrecadadoPorPeriodo() {
+		LocalDate dataInicial, dataFinal, dataDevolucao;
+		
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		System.out.println("Períodoa ser calculado");
+		System.out.print("\nformato dd/MM/yyyy");
+		System.out.println("Digite a data inicial:");
+		String dInicial = inputChar.nextLine();
+		dataInicial = LocalDate.parse(dInicial, formato);
+		System.out.println("Digite a data final:");
+		String dFinal = inputChar.nextLine();
+		dataFinal = LocalDate.parse(dFinal, formato);
+		
+		double total = 0;
+		
+		for (Locacao l : locacoes) {
+			dataDevolucao = l.getDataDevolucao();
+			if (l.getStatus() == 3 ) {
+				imprimir(l);
+				if(dataInicial.isAfter(dataDevolucao) && dataFinal.isBefore(dataDevolucao));
+			}
+			System.out.println("------------------------------");
+		}
+		for (Locacao l : locacoes) {
+			total += calcularTotalArrecadado(l);
+		}
+		System.out.println("\nTotal arrecadado = "+ total);
 		
 	}
 	
 	public void totalAReceber() {
+		double total = 0, preco = 0, multa = 0;
 		
+		if (locacoes.size() != 0) {
+			
+			for (Locacao l : locacoes) {
+				LocalDate dataPrevistaDevolucao = l.getDataPrevistaDevolucao();
+				LocalDate dataDevolucao = LocalDate.now();
+				preco = l.getPreco();
+				Period periodo = Period.between(dataPrevistaDevolucao, dataDevolucao);
+				if(atrasado(l)) {
+					multa = 0.3;
+					total = calcularJuros(periodo.getDays(), preco, multa);
+					l.setMulta(total);
+					System.out.println("Dias de atraso: "+ periodo.getDays());
+				}
+				
+				
+				imprimirAreceber(l);
+				
+				System.out.println("------------------------------");
+			}
+			for (Locacao l : locacoes) {
+				total += calcularTotalAreceber(l);
+			}
+			System.out.println("\nTotal a receber = "+ total);
+		}
 	}
 	
 	public static double calcularJuros(int dias, double preco, double juros){
@@ -197,12 +251,29 @@ public class GerenciaCaixa {
     
     public void imprimir(Locacao l) {
 		//DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		if(l.getStatus() == 3) {
+		
 			System.out.println("POSIÇÃO-"+"["+locacoes.indexOf(l)+"]");
 			System.out.println("Cliente:--------" + l.getCliente().getNome());
 			
 			if(l.getMulta() == 0) {
 				System.out.println("Valor pago:-----"+ l.getPreco());
+				
+			}else {
+				System.out.println("Valor + Multa:--"+ l.getMulta());
+			}
+			
+		
+		
+	}
+    
+    public void imprimirAreceber(Locacao l) {
+		//DateTimeFormatter formatoBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		if(l.getStatus() == 2) {
+			System.out.println("POSIÇÃO-"+"["+locacoes.indexOf(l)+"]");
+			System.out.println("Cliente:--------" + l.getCliente().getNome());
+			
+			if(l.getMulta() == 0) {
+				System.out.println("Valor:----------"+ l.getPreco());
 				
 			}else {
 				System.out.println("Valor + Multa:--"+ l.getMulta());
@@ -224,6 +295,35 @@ public class GerenciaCaixa {
     	}
     	
     	return total;
+    }
+    
+    public double calcularTotalAreceber(Locacao l) {
+    	double total = 0;
+    	
+    	if(l.getStatus() == 2) {
+    		if(l.getMulta() == 0) {
+    			total = l.getPreco();
+    		}else {
+    			total = l.getMulta();
+    		}
+    		
+    	}
+    	
+    	return total;
+    }
+    
+    public boolean atrasado(Locacao l) {
+    	boolean atrasou;
+    	boolean emDias;
+    	LocalDate dataPrevistaDevolucao = l.getDataPrevistaDevolucao();
+		LocalDate hoje = LocalDate.now();
+		
+    	if(hoje.isAfter(dataPrevistaDevolucao)) {
+			return atrasou = true;
+    	}else {
+    		return emDias = false;
+    	}
+    	
     }
 	
 }

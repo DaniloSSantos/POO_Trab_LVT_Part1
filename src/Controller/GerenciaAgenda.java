@@ -113,7 +113,7 @@ public class GerenciaAgenda {
 	
 	
 	public void agendar() {
-		int posCliente, codCliente = 0, posVeiculo = 0, codVeiculo;
+		int posCliente, codCliente = 0, posVeiculo = 0;
 		LocalDate dataInicio, dataPrevistaDevolucao, dataDevolucao = null;
 		
 		
@@ -183,8 +183,6 @@ public class GerenciaAgenda {
 			pos = inputNum.nextInt();
 
 			if (pos >= 0 && pos < locacoes.size()) {
-				LocalDate dataInicio = LocalDate.now();
-				locacoes.get(pos).setDataInicio(dataInicio);				
 				locacoes.get(pos).setStatus(2);
 				
 				System.out.println("\nLocação realizada com sucesso!");

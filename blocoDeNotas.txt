@@ -40,4 +40,5 @@ Classe GerenciaAgenda: melhorias e correções no código.
 Classe GerenciaCaixa: implementação do método pagamentoLocacao.
 Classe GerenciaCaixa: melhorias no método pagamentoLocacao.
 Classe GerenciaCaixa: implementação dos métodos totalArrecadado, calcularTotalArrecadado, imprimir.
+Classe GerenciaCaixa: implementação dos métodos totalArrecadadoPorPeriodo, totalAReceber e melhorias no código.
 
