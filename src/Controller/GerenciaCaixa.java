@@ -208,32 +208,30 @@ public class GerenciaCaixa {
 	}
 	
 	public void totalAReceber() {
-		double total = 0, preco = 0, multa = 0;
 		
-		if (locacoes.size() != 0) {
+		if (locacoes.size() !=0) {
+			double total = 0, preco = 0, juros = 0;
+			LocalDate dataDevolucao = LocalDate.now();
 			
 			for (Locacao l : locacoes) {
 				LocalDate dataPrevistaDevolucao = l.getDataPrevistaDevolucao();
-				LocalDate dataDevolucao = LocalDate.now();
+				
 				preco = l.getPreco();
 				Period periodo = Period.between(dataPrevistaDevolucao, dataDevolucao);
 				if(atrasado(l) && periodo.getDays() > 0) {
-					multa = 0.3;
-					total = calcularJuros(periodo.getDays(), preco, multa);
+					juros = 0.3;
+					total = calcularJuros(periodo.getDays(), preco, juros);
 					l.setMulta(total);
 					System.out.println("Dias de atraso: "+ periodo.getDays());
 					
 					imprimirAreceber(l);
-					total += calcularTotalAreceber(l);
+					//total += calcularTotalAreceber(l);
+					
 				}
 				
 				System.out.println("------------------------------");
 			}
-			/*
-			for (Locacao l : locacoes) {
-				total += calcularTotalAreceber(l);
-			}
-			*/
+			
 			System.out.println("\nTotal a receber = "+ total);
 		}
 	}
@@ -328,7 +326,7 @@ public class GerenciaCaixa {
     	LocalDate hoje = LocalDate.now();
     	LocalDate dataPrevistaDevolucao = l.getDataPrevistaDevolucao();
 		
-    	if(hoje.isAfter(dataPrevistaDevolucao)) {
+    	if(hoje.isAfter(dataPrevistaDevolucao) && l.getStatus() == 2) {
     		atrasou = true;
 			return atrasou;
     	}else {
@@ -337,5 +335,33 @@ public class GerenciaCaixa {
     	}
     	
     }
+    
+    public int verificaSeExiteLocacaoApagar(ArrayList<Locacao> loc) {
+		int posicao = 0;
+		int compara = 0;
+		
+
+		if (loc.size() != 0) {
+			for (int i = 0; i < arrayclientes.size(); i++) {
+				if (arrayclientes.get(i).getCodigo() == codCliente) {
+					compara = arrayclientes.get(i).getCodigo();
+					posicao = i;
+					break;
+				}
+			}
+
+			if (compara == codCliente) {
+				return posicao;
+
+			} else {
+				System.out.println("não encontrado!");
+				return -1;
+			}
+		} else {
+			System.out.println("Não existe cadastrado!");
+			return -2;
+
+		}
+	}
 	
 }
