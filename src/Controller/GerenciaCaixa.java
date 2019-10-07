@@ -168,7 +168,7 @@ public class GerenciaCaixa {
 		}
 	}
 	
-	public void totalArrecadadoPorPeriodo() {
+	public void  totalArrecadadoPorPeriodo() {
 		LocalDate dataInicial, dataFinal, dataDevolucao;
 		
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
