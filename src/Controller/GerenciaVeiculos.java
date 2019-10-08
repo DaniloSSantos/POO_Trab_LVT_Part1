@@ -100,8 +100,6 @@ public class GerenciaVeiculos {
 		System.out.print("\nPlaca: ");
 		placa = inputChar.nextLine();
 
-		// tipoVeiculo = op;
-
 		if (op == 1) {
 			int capacidadePassageiros;
 			int quantidadePortas = 0;
@@ -241,7 +239,7 @@ public class GerenciaVeiculos {
 							System.out.println("Certo, não foi alterado");
 						}
 					}
-					
+
 					if (tipoVeiculo instanceof Caminhao) {
 						Caminhao cami = (Caminhao) tipoVeiculo;
 
@@ -282,7 +280,7 @@ public class GerenciaVeiculos {
 						} else {
 							System.out.println("Certo, não foi alterado");
 						}
-					}else {
+					} else {
 						if (tipoVeiculo instanceof Caminhao) {
 							Caminhao cami = (Caminhao) tipoVeiculo;
 
@@ -404,9 +402,9 @@ public class GerenciaVeiculos {
 			System.out.println("Número de eixos:------------" + cami.getNumeroDeEixos());
 		}
 	}
-	
+
 	public void listarVeiculo() {
-		
+
 		for (Veiculo v : arrayVeiculos) {
 			if (arrayVeiculos.size() != 0) {
 
@@ -428,7 +426,6 @@ public class GerenciaVeiculos {
 
 				}
 
-
 			} else {
 				System.out.println("Não existe veículo cadastrado!");
 			}
@@ -436,11 +433,10 @@ public class GerenciaVeiculos {
 		}
 
 	}
-	
+
 	public int buscarVeiculoPorPlaca(String placa) {
 		int pos = 0;
 		String compara = null;
-
 
 		if (arrayVeiculos.size() != 0) {
 			for (Veiculo v : arrayVeiculos) {
@@ -457,9 +453,7 @@ public class GerenciaVeiculos {
 
 				return pos;
 			} else {
-				System.out.println("compara= "+compara);
-				System.out.println("placa= "+placa);
-				System.out.println("pos= "+pos);
+
 				System.out.println("Veículo não encontrado!\n");
 
 				return -1;

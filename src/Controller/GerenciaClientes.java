@@ -3,15 +3,11 @@ package Controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
-import Model.Caminhao;
-import Model.Carro;
 import Model.Cliente;
 import Model.Fisica;
 import Model.Juridica;
-import Model.Veiculo;
 
 public class GerenciaClientes {
 	ArrayList<Cliente> arrayclientes;
@@ -24,7 +20,7 @@ public class GerenciaClientes {
 		inputNum = new Scanner(System.in);
 		inputChar = new Scanner(System.in);
 	}
-	
+
 	int op = 0;
 
 	public void subMenu() {
@@ -72,10 +68,10 @@ public class GerenciaClientes {
 			}
 		} while (op != 6);
 	}
-	
+
 	public void incluir() {
 		String nome, endereco, telefone;
-		
+
 		int op;
 		do {
 			System.out.println("-------------");
@@ -90,53 +86,53 @@ public class GerenciaClientes {
 			}
 
 		} while ((op < 1) || (op > 2));
-		
+
 		System.out.println("Digite os dados a seguir");
-		
+
 		System.out.print("Nome: ");
 		nome = inputChar.nextLine();
 		System.out.print("Endereço: ");
 		endereco = inputChar.nextLine();
 		System.out.print("Telefone: ");
 		telefone = inputChar.nextLine();
-		
-		if(op == 1) {
+
+		if (op == 1) {
 			String cpf, data;
 			LocalDate dataNascimento;
 			int codigo;
-			
+
 			codigo = GerarCodigo.getProximoCodigo();
-			
+
 			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			System.out.print("CPF: ");
 			cpf = inputChar.nextLine();
 			System.out.print("Data de nascimento:\nformato dd/MM/yyyy\n");
 			data = inputChar.nextLine();
-			
+
 			dataNascimento = LocalDate.parse(data, formato);
-			
+
 			Fisica f = new Fisica(nome, endereco, telefone, codigo, cpf, dataNascimento);
 			arrayclientes.add(f);
-			
+
 			System.out.println("\nPessoa física cadastrada com sucesso!");
 		}
-		
-		if(op == 2) {
+
+		if (op == 2) {
 			String cnpj;
 			System.out.print("CNPJ: ");
 			cnpj = inputChar.nextLine();
 			int codigo;
-			
+
 			codigo = GerarCodigo.getProximoCodigo();
-			
+
 			Juridica j = new Juridica(nome, endereco, telefone, codigo, cnpj);
 			arrayclientes.add(j);
-			
+
 			System.out.println("\nPessoa Jurídica cadastrada com sucesso!");
 		}
-		
+
 	}
-	
+
 	public void alterar() {
 		String nome, endereco, telefone;
 		int pos, resp, resp2;
@@ -196,7 +192,7 @@ public class GerenciaClientes {
 					break;
 				case 4:
 					Cliente tipoCliente = arrayclientes.get(pos);
-					
+
 					if (tipoCliente instanceof Fisica) {
 						Fisica fisica = (Fisica) tipoCliente;
 
@@ -215,7 +211,7 @@ public class GerenciaClientes {
 							System.out.println("Certo, não foi alterado");
 						}
 					}
-					
+
 					if (tipoCliente instanceof Juridica) {
 						Juridica juri = (Juridica) tipoCliente;
 
@@ -239,18 +235,18 @@ public class GerenciaClientes {
 
 				case 5:
 					tipoCliente = arrayclientes.get(pos);
-					
+
 					if (tipoCliente instanceof Fisica) {
 						LocalDate dataNascimento;
 						String data;
-						
+
 						Fisica fisica = (Fisica) tipoCliente;
-						
+
 						DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-						
+
 						System.out.print("Data de nascimento:\nformato dd/MM/yyyy\n");
 						data = inputChar.nextLine();
-						
+
 						dataNascimento = LocalDate.parse(data, formato);
 
 						System.out.println("Alterar? 1.sim | 2.não");
@@ -277,7 +273,7 @@ public class GerenciaClientes {
 			System.out.println("Não existe Cliente cadastrado!");
 		}
 	}
-	
+
 	public void excluir() {
 		int pos, resp;
 
@@ -299,7 +295,7 @@ public class GerenciaClientes {
 			System.out.println("Posição inexistente!");
 		}
 	}
-	
+
 	public void consultar() {
 		int pos;
 
@@ -313,7 +309,7 @@ public class GerenciaClientes {
 			System.out.println("Posição inexistente!");
 		}
 	}
-	
+
 	public void relatorio() {
 		if (arrayclientes.size() != 0) {
 			for (Cliente c : arrayclientes) {
@@ -324,13 +320,12 @@ public class GerenciaClientes {
 			System.out.println("Não existe veículo cadastrado!");
 		}
 	}
-	
+
 	public void imprimir(Cliente c) {
 		System.out.println("CÓDIGO [" + c.getCodigo() + "]");
 		System.out.println("Nome:------------------" + c.getNome());
 		System.out.println("Endereço:--------------" + c.getEndereco());
 		System.out.println("Telefone:--------------" + c.getTelefone());
-		
 
 		if (c instanceof Fisica) {
 			Fisica fisica = (Fisica) c;
@@ -343,13 +338,12 @@ public class GerenciaClientes {
 			System.out.println("CNPJ:------------------" + juri.getCnpj());
 		}
 	}
-	
+
 	public void imprimirNumerado(Cliente c) {
 		System.out.println("1.CÓDIGO [" + c.getCodigo() + "]");
 		System.out.println("1.Nome:------------------" + c.getNome());
 		System.out.println("2.Endereço:--------------" + c.getEndereco());
 		System.out.println("3.Telefone:--------------" + c.getTelefone());
-		
 
 		if (c instanceof Fisica) {
 			Fisica fisica = (Fisica) c;
@@ -362,12 +356,10 @@ public class GerenciaClientes {
 			System.out.println("4.CNPJ:------------------" + juri.getCnpj());
 		}
 	}
-	
-	
+
 	public int buscarClientePorCodigo(int codCliente) {
 		int posicao = 0;
 		int compara = 0;
-		
 
 		if (arrayclientes.size() != 0) {
 			for (int i = 0; i < arrayclientes.size(); i++) {
@@ -391,5 +383,5 @@ public class GerenciaClientes {
 
 		}
 	}
-	
+
 }

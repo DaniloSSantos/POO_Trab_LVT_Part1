@@ -11,7 +11,7 @@ public class Locacao {
 	private LocalDate dataDevolucao;
 	private double preco;
 	private double multa;
-	private int status; //--------->> 0 cancelado | 1 agendado | 2 locado | 3 pago | 4 não pago
+	private int status;
 	
 	
 	public Locacao(Cliente cliente, ArrayList<Veiculo> veiculos, LocalDate dataInicio, LocalDate dataPrevistaDevolucao,

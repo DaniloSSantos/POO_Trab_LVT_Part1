@@ -3,52 +3,31 @@ package View;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Model.Agenda;
-import Model.Caixa;
-import Model.Carro;
 import Model.Cliente;
-import Model.Juridica;
 import Model.Locacao;
 import Model.Veiculo;
 import Controller.GerenciaAgenda;
 import Controller.GerenciaCaixa;
 import Controller.GerenciaClientes;
-import Controller.GerenciaLocacao;
 import Controller.GerenciaVeiculos;
 
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 		ArrayList<Veiculo> arrayVeiculos = new ArrayList<>();
 		GerenciaVeiculos gerVeic = new GerenciaVeiculos(arrayVeiculos);
-		
+
 		ArrayList<Cliente> arrayclientes = new ArrayList<>();
 		GerenciaClientes gerCli = new GerenciaClientes(arrayclientes);
-		
+
 		ArrayList<Locacao> locacoes = new ArrayList<>();
-		
+
 		GerenciaAgenda gerAg = new GerenciaAgenda(arrayVeiculos, arrayclientes, locacoes);
-		
-		GerenciaCaixa gerCa	= new GerenciaCaixa(arrayVeiculos, arrayclientes, locacoes);
+
+		GerenciaCaixa gerCa = new GerenciaCaixa(arrayVeiculos, arrayclientes, locacoes);
 
 		Scanner input = new Scanner(System.in);
-		
-		//---------------------------------------------------------//
-		for(int i=0; i <=4; i++){//carro
-			String dado= Integer.toString(i);
-            Carro carro = new Carro(dado,dado,i,i,dado,i,i);
-            
-            arrayVeiculos.add(carro);
-        }
-		for(int i=0; i <=4; i++){//cliente
-			String dado= Integer.toString(i);
-            Juridica juri = new Juridica(dado,dado,dado,i,dado);
-            
-            arrayclientes.add(juri);
-        }
-		
-		//---------------------------------------------------------//
 
 		int opc;
 		do {
@@ -63,7 +42,7 @@ public class Main {
 			System.out.println("============== --0-- ==============");
 			System.out.print("Opção: ");
 			opc = input.nextInt();
-			
+
 			switch (opc) {
 			case 1:
 				gerCa.subMenu();
